@@ -12,9 +12,24 @@ def get_db_connection():
 def get():
     conn = get_db_connection()
     posts = conn.execute('SELECT * FROM crime_table').fetchall()
-    results = [tuple(row) for row in posts]
     conn.close()
-    return results
+    
+    
+    results = [list(row) for row in posts]
+    l =[]
+    for crime in results:
+        dict = {}   
+        dict['id'] = crime[0]
+        dict['type'] = crime[1]
+        dict['location'] = {'address':crime[2],
+                            'longtitude':crime[3],
+                            'latitude': crime[4]}
+        dict['date'] = crime[5]
+        dict['time'] = crime[6]
+        print(dict)
+        l.append(dict)
+    
+    return l
 
 @app.route('/post', methods=['POST'])
 def insert():
