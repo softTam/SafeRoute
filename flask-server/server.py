@@ -16,7 +16,8 @@ def get():
     
     
     results = [list(row) for row in posts]
-    l =[]
+    l = {}
+    i = 0
     for crime in results:
         dict = {}   
         dict['id'] = crime[0]
@@ -27,7 +28,8 @@ def get():
         dict['date'] = crime[5]
         dict['time'] = crime[6]
         print(dict)
-        l.append(dict)
+        l[i] = dict
+        i+=1
     
     return l
 
