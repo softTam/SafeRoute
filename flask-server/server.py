@@ -1,6 +1,5 @@
 import sqlite3
-from flask import Flask, render_template,request
-
+from flask import Flask, render_template,request,jsonify
 app = Flask(__name__)
 
 def get_db_connection():
@@ -31,7 +30,7 @@ def get():
         l[i] = dict
         i+=1
     
-    return l
+    return jsonify(l)
 
 @app.route('/post', methods=['POST'])
 def insert():
