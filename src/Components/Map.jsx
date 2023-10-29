@@ -98,7 +98,7 @@ const containerStyle = {
 
 const center = {
   lat: 37.8715,
-  lng: -122.272781,
+  lng: -122.2595,
 };
 
 //Circle properties

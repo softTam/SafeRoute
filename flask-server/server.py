@@ -18,18 +18,19 @@ def get_db_connection():
 @app.route('/reportCrime', methods = ['POST'])
 def report():
     if request.method == 'POST':
-        print(request.get_json())
         lat_lng = request.get_json()
+        print("ERROR", request.get_json())
         conn = get_db_connection()
         id = None
         with open("primary_key_count.txt", 'r') as my_file:
             id = str(int(my_file.readline())+1)
         with open("primary_key_count.txt", 'w') as my_file:
             my_file.write(str(id))
-        data = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat_lng['latitude']},{lat_lng['longtitude']}&key={APIkey}").json()
+        longtitude = lat_lng['lng']
+        latitude = lat_lng['lat']
+        data = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?latlng={latitude},{longtitude}&key={APIkey}").json()
         address = data['results'][0]['formatted_address']
-        longtitude = lat_lng[lat_lng['body'].find(',')+1:]
-        latitude = lat_lng['body'][0:lat_lng['body'].find(',')]
+        # address = "2701 Ridge Rd"
         type = 'Violent Crime'
         
         from datetime import date,datetime
