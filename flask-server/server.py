@@ -46,7 +46,7 @@ def report():
 
 
 
-@app.route('/')
+@app.route('/get')
 def get():
     conn = get_db_connection()
     posts = conn.execute('SELECT * FROM crime_table').fetchall()
