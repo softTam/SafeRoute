@@ -28,8 +28,8 @@ def report():
             my_file.write(str(id))
         data = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat_lng['latitude']},{lat_lng['longtitude']}&key={APIkey}").json()
         address = data['results'][0]['formatted_address']
-        longtitude = lat_lng['lng']
-        latitude = lat_lng['lat']
+        longtitude = lat_lng[lat_lng['body'].find(',')+1:]
+        latitude = lat_lng['body'][0:lat_lng['body'].find(',')]
         type = 'Violent Crime'
         
         from datetime import date,datetime
