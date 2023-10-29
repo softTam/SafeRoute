@@ -1,9 +1,11 @@
 import React from "react";
 import { useMemo, useState, useEffect } from "react";
 import { GoogleMap, MarkerF, Circle } from "@react-google-maps/api";
+import CustomMarker from "../Components/icons8-place-marker-50.png";
 
-export default function Map() {
-  //   load server
+export default function Map({ setCurrentPos }) {
+  //{ setCurrentPos }
+  // load server
   const [data, setData] = useState([{}]);
 
   useEffect(() => {
@@ -35,22 +37,57 @@ export default function Map() {
     // console.log(locInfo);
   }
 
+  //Get current location
+  const currentPos = {
+    lat: null,
+    lng: null,
+  };
+  let infoWindow = new google.maps.InfoWindow();
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        setCurrentPos(pos);
+
+        // console.log(pos);
+        infoWindow.setPosition(pos);
+        // console.log(pos);
+        infoWindow.setContent("Location found.");
+
+        currentPos.lat = pos.lat;
+        currentPos.lng = pos.lng;
+        // infoWindow.open(map);
+        // map.setCenter(pos);
+      },
+      () => {
+        alert("Error: The Geolocation service failed.");
+      }
+    );
+  } else {
+    // Browser doesn't support Geolocation
+    alert("Error: Your browser doesn't support geolocation.");
+  }
+
   //Render map
   return (
-    <>
-      <div>
-        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
-          <div>
-            {locInfo.map((loc) => (
-              <div key={loc.id}>
-                <MarkerF position={loc.pos} />
-                <Circle center={loc.pos} radius={100} options={closeOptions} />
-              </div>
-            ))}
+    <div>
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
+        <div>
+          {locInfo.map((loc) => (
+            <div key={loc.id}>
+              <MarkerF position={loc.pos} />
+              <Circle center={loc.pos} radius={100} options={closeOptions} />
+            </div>
+          ))}
+          <div key="CurrentUserPosition">
+            <MarkerF position={currentPos} options={{ icon: CustomMarker }} />
           </div>
-        </GoogleMap>
-      </div>
-    </>
+        </div>
+      </GoogleMap>
+    </div>
   );
 }
 
