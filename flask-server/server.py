@@ -1,12 +1,19 @@
 import sqlite3
 from flask import Flask, render_template,request,jsonify
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
 
 def get_db_connection():
     conn = sqlite3.connect('instance/data.db')
     conn.row_factory = sqlite3.Row
     return conn
 
+# @app.route('/members')
+# def get():
+#     return {"lists": ["Member1", "Member2", "Member3"]}
+    
 @app.route('/get')
 def get():
     conn = get_db_connection()

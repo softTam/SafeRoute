@@ -78,3 +78,21 @@ button:focus-visible {
   height: 100vh;
   width: 100vw;
 }
+
+.container {
+  display: flex;
+  height: 80vh;
+}
+
+.controls {
+  width: 20%;
+  padding: 1rem;
+  background: #14161a;
+  color: #fff;
+
+}
+
+.map {
+  width: 80%;
+  height: 100vh;
+}

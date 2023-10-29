@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -8,10 +8,23 @@ import Map from "./Components/Map";
 import { mapOptions } from "./Components/MapConfiguration";
 
 export default function App() {
+  // Load Google Map
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: mapOptions.googleMapApiKey,
   });
 
   if (!isLoaded) return <div>Loading...</div>;
-  return <Map />;
+  return (
+    <>
+      <h2>Safe Route</h2>
+      <div className="container">
+        <div className="controls">
+          <h1>Enter value</h1>
+        </div>
+        <div className="map">
+          <Map />
+        </div>
+      </div>
+    </>
+  );
 }
