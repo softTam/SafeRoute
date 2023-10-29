@@ -1,2 +1,3 @@
-with open("primary_key_count.txt", r) as my_file:
-        my_file.write('Hi')  
+import requests
+x = {'longtitude' : '23', 'latitude' : '52'}
+requests.post('http://127.0.0.1:5000/reportCrime',json=x)

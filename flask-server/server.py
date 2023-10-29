@@ -25,8 +25,8 @@ def report():
             id = str(int(my_file.readline())+1)
         with open("primary_key_count.txt", 'w') as my_file:
             my_file.write(str(id))
-        data = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat_lng['latitude']},{lat_lng['longtitude']}&key={APIkey}")
-        address = data['formatted_address']
+        data = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat_lng['latitude']},{lat_lng['longtitude']}&key={APIkey}").json()
+        address = data['results'][0]['formatted_address']
         longtitude = lat_lng['longtitude']
         latitude = lat_lng['latitude']
         type = 'Violent Crime'
