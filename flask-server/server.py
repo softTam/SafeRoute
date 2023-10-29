@@ -41,6 +41,7 @@ def report():
         conn.commit()
         conn.close()
         
+        print("Executed")
         return "Executed"
     
 
