@@ -2,6 +2,7 @@ import React from "react";
 import { useMemo, useState, useEffect } from "react";
 import { GoogleMap, MarkerF, Circle } from "@react-google-maps/api";
 import CustomMarker from "../Components/icons8-place-marker-50.png";
+import { mapOptions } from "../Components/MapConfiguration";
 
 export default function Map({ setCurrentPos }) {
   //{ setCurrentPos }
@@ -9,7 +10,7 @@ export default function Map({ setCurrentPos }) {
   const [data, setData] = useState([{}]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/get")
+    fetch(`${mapOptions.url}/get`)
       .then((response) => response.json())
       .then((data) => {
         setData(data);
@@ -74,7 +75,7 @@ export default function Map({ setCurrentPos }) {
   //Render map
   return (
     <div>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
         <div>
           {locInfo.map((loc) => (
             <div key={loc.id}>
