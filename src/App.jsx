@@ -8,7 +8,7 @@ import { mapOptions } from "./Components/MapConfiguration";
 export default function App() {
   // load input to server
   function handleButton() {
-    let url = "http://localhost:5000/reportCrime";
+    let url = `${mapOptions.url}/reportCrime`;
 
     fetch(url, {
       method: "POST",
@@ -29,7 +29,9 @@ export default function App() {
         console.error("Error:", error);
       });
 
-    console.log("Done fetching");
+    document.getElementById("onlyButton").disabled = "disabled";
+    document.getElementById("afterClick").innerHTML =
+      "Your information has been reported";
   }
 
   // Load Google Map
@@ -43,11 +45,15 @@ export default function App() {
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <>
-      <h2>Safe Route</h2>
+      <h1>Safe Route</h1>
+      <h3>Getting you to anywhere safely</h3>
       <div className="container">
         <div className="controls">
           <h4>Report a dangerous situation around you</h4>
-          <button onClick={handleButton}>Report</button>
+          <button id="onlyButton" onClick={handleButton}>
+            Report
+          </button>
+          <div id="afterClick"></div>
         </div>
         <div className="map">
           <Map setCurrentPos={setCurrentPos} />
