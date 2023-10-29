@@ -30,13 +30,11 @@ def report():
         latitude = lat_lng['lat']
         data = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?latlng={latitude},{longtitude}&key={APIkey}").json()
         address = data['results'][0]['formatted_address']
-        # address = "2701 Ridge Rd"
         type = 'Violent Crime'
         
         from datetime import date,datetime
         today = date.today()
-        d4 = today.strftime("%b-%d-%Y")
-        date_ = d4
+        date_ = today.strftime("%b-%d-%Y")
         time =  datetime.now().strftime("%H:%M:%S")
         
         conn.execute(f"INSERT INTO crime_table(id,type,address,longtitude,latitude,date,time) VALUES ({id},'{type}','{address}','{longtitude}','{latitude}','{date_}','{time}')")
@@ -99,6 +97,6 @@ def insert():
         conn.commit()
         conn.close()
         return "Done"
-
+    
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
