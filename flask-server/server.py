@@ -18,6 +18,7 @@ def get_db_connection():
 @app.route('/reportCrime', methods = ['POST'])
 def report():
     if request.method == 'POST':
+        print(request.get_json())
         lat_lng = request.get_json()
         conn = get_db_connection()
         id = None
@@ -27,7 +28,7 @@ def report():
             my_file.write(str(id))
         data = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat_lng['latitude']},{lat_lng['longtitude']}&key={APIkey}").json()
         address = data['results'][0]['formatted_address']
-        longtitude = lat_lng['lng']
+        longtitude = lat_lng['lgn']
         latitude = lat_lng['lat']
         type = 'Violent Crime'
         
